@@ -1,7 +1,7 @@
 import logging
+
 from src.control import FanControl
 from src.fan import Fan
-
 from src.temperature import Temperature
 
 

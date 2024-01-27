@@ -1,6 +1,7 @@
 from logging import debug
-from src.fan import Fan
 import time
+
+from src.fan import Fan
 
 
 class FanControl:
