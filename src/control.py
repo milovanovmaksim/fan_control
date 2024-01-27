@@ -14,5 +14,5 @@ class FanControl:
     def run(self):
         debug("Control.run | Control is running...")
         while True:
-            frequency = self._fan.frequency()
+            frequency = self._fan.update_fan_frequency()
             time.sleep(self._delay)

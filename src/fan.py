@@ -30,3 +30,6 @@ class Fan:
         else:
             error("main | {}", temperature)
             return temperature
+
+    def update_fan_frequency(self):
+        frequency = self.frequency()
