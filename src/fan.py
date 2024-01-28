@@ -34,10 +34,10 @@ class Fan:
                 frequency = round(((92 * (temperature - self.config.temp_min)) / (self.config.temp_max - self.config.temp_min)) + 8)
                 if frequency > 100:
                     frequency = 100
-            debug(f"Fan.frequency | frequency = {frequency}, temperature = {temperature}")
+            debug(f"Fan._duty_cycle | frequency = {frequency}, temperature = {temperature}")
             return frequency
         else:
-            error("main | {}", temperature)
+            error(f"Fan._duty_cycle  | {temperature}")
             return temperature
 
     def update_fan_frequency(self):
@@ -45,4 +45,4 @@ class Fan:
         if isinstance(duty_cycle, int):
             self._pwm.ChangeDutyCycle(duty_cycle)
         else:
-            error(f"Fan.frequency | {duty_cycle}")
+            error(f"Fan.update_fan_frequency | {duty_cycle}")
