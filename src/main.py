@@ -1,21 +1,27 @@
 import logging
 
+import RPi.GPIO as GPIO
+
 from src.control import FanControl
 from src.fan import Fan
 from src.temperature import Temperature
+from src.config import Config
 
 
 def main():
     logging.basicConfig(format='%(asctime)s %(message)s', level=logging.ERROR)
-    temp_min = 40
-    temp_max = 80
-    delay = 3
-    pin = 14
-    path = "/sys/class/thermal/thermal_zone0/temp"
+    config = Config()
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setwarnings(False)
+    GPIO.setup(config.fan_pin, GPIO.OUT)
+    fan_pwm = GPIO.PWM(config.fan_pin, 100)
     control = FanControl(
-        Fan(Temperature(path), temp_min, temp_max, pin),
-        delay)
-    control.run()
+        Fan(Temperature(config), config, fan_pwm),
+        config)
+    try:
+        control.run()
+    except Exception:
+        GPIO.cleanup()
 
 
 if __name__ == "__main__":
