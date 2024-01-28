@@ -3,18 +3,16 @@ import time
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from src.config import Config
-
-from src.fan import Fan
+    from src.fan import Fan
 
 
 class FanControl:
     """
     Контроль частоты вращения вентилятора от температура CPU.
     """
-    def __init__(self, fan: Fan, config: "Config"):
+    def __init__(self, fan: "Fan", delay: int):
         self._fan = fan
-        self._config = config
+        self._delay = delay
 
     def run(self):
         debug("Control.run | Control is running...")
@@ -24,4 +22,4 @@ class FanControl:
             if isinstance(result, Exception):
                 error(f"FanControl.run  | {result}")
                 raise result
-            time.sleep(self._config.delay)
+            time.sleep(self._delay)
