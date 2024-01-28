@@ -1,4 +1,4 @@
-from logging import debug
+from logging import debug, error
 import time
 from typing import TYPE_CHECKING
 
@@ -20,5 +20,8 @@ class FanControl:
         debug("Control.run | Control is running...")
         self._fan.start()
         while True:
-            self._fan.update_fan_frequency()
+            result = self._fan.update_fan_frequency()
+            if isinstance(result, Exception):
+                error(f"FanControl.run  | {result}")
+                raise result
             time.sleep(self._config.delay)
