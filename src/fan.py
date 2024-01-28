@@ -1,5 +1,5 @@
 from logging import debug, error
-from typing import Union, TYPE_CHECKING
+from typing import Union, TYPE_CHECKING, Optional
 
 
 if TYPE_CHECKING:
@@ -40,9 +40,10 @@ class Fan:
             error(f"Fan._duty_cycle  | {temperature}")
             return temperature
 
-    def update_fan_frequency(self):
+    def update_fan_frequency(self) -> Optional[Exception]:
         duty_cycle = self._duty_cycle()
         if isinstance(duty_cycle, int):
             self._pwm.ChangeDutyCycle(duty_cycle)
         else:
             error(f"Fan.update_fan_frequency | {duty_cycle}")
+            return duty_cycle
