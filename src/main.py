@@ -26,7 +26,7 @@ def main():
         control.run()
     except KeyboardInterrupt:
         GPIO.cleanup()
-    except Exception:
+    finally:
         GPIO.cleanup()
 
 
