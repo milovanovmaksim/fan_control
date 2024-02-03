@@ -23,13 +23,16 @@ class Fan:
         debug("Fan.start | The fat is starting....")
         self._fan_pwm.start(self._fan_low)
 
-    def _duty_cycle(self) -> Union[int, ValueError]:
+    def _duty_cycle(self) -> Union[int, Exception]:
         """
 
         """
         temperature = self._temperature.temperature()
         frequency = 0
-        if isinstance(temperature, float):
+        if isinstance(temperature, Exception):
+            error(f"Fan._duty_cycle  | {temperature}")
+            return temperature
+        else:
             if temperature > self._temp_max:
                 frequency = 100
             elif temperature > self._temp_min:
@@ -39,9 +42,6 @@ class Fan:
                     frequency = 100
             debug(f"Fan._duty_cycle | frequency = {frequency}, temperature = {temperature}")
             return frequency
-        else:
-            error(f"Fan._duty_cycle  | {temperature}")
-            return temperature
 
     def update_fan_frequency(self) -> Optional[Exception]:
         duty_cycle = self._duty_cycle()
