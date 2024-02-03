@@ -10,12 +10,12 @@ from src.temperature import Temperature
 def main():
     temp_min = 40
     temp_max = 60
-    delay = 5
+    delay = 2
     fan_pin = 18
     path = "/sys/class/thermal/thermal_zone0/temp"
     fan_low = 20
     fan_high = 100
-    pwm_freq = 50
+    pwm_freq = 100
     logging.basicConfig(format='%(asctime)s %(message)s', level=logging.ERROR)
     GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
@@ -32,3 +32,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
