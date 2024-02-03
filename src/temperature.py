@@ -9,9 +9,9 @@ class Temperature():
     def __init__(self, path: str):
         self._path = path
 
-    def temperature(self) -> Union[int, ValueError]:
+    def temperature(self) -> Union[float, ValueError]:
         """
-        Определяет температуру CPU Raspberry pi4.
+        Читает температуру CPU Raspberry pi4 из файла.
         """
         with open(self._path) as reader:
             try:
