@@ -29,11 +29,12 @@ class Fan:
         """
         temperature = self._temperature.temperature()
         frequency = 0
-        if isinstance(temperature, int):
+        if isinstance(temperature, float):
             if temperature > self._temp_max:
                 frequency = 100
             elif temperature > self._temp_min:
-                frequency = round(((self._fan_high * (temperature - self._temp_min)) / (self._temp_max - self._temp_min)) + self._fan_low)
+                delta = self._fan_high - self._fan_low
+                frequency = round(delta * (temperature - self._temp_min) / (self._temp_max - self._temp_min) + self._fan_low)
                 if frequency > 100:
                     frequency = 100
             debug(f"Fan._duty_cycle | frequency = {frequency}, temperature = {temperature}")
