@@ -16,7 +16,7 @@ def main():
     fan_low = 20
     fan_high = 100
     pwm_freq = 100
-    logging.basicConfig(format='%(asctime)s %(message)s', level=logging.DEBUG)
+    logging.basicConfig(format='%(asctime)s %(message)s', level=logging.ERROR)
     GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
     GPIO.setup(fan_pin, GPIO.OUT)

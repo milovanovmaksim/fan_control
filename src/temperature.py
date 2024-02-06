@@ -5,6 +5,9 @@ from typing import Union
 class Temperature():
     """
     Температура CPU Raspberry Pi4.
+    Params:
+        path - путь к файлу с которогу можно прочитать температуру процессоора.
+        Для Raspberry Pi /sys/class/thermal/thermal_zone0/temp.
     """
     def __init__(self, path: str):
         self._path = path

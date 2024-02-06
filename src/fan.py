@@ -10,6 +10,12 @@ if TYPE_CHECKING:
 class Fan:
     """
     Вентилятор охлаждения Raspberry Pi.
+    Params:
+        temp_min - минимальная температура CPU при которой включается вентилятор охлаждения,
+        temp_max - максимальная температура CPU при которой вентилятор охлаждения выходит на 100% частоту вращения,
+        fan_low - минимальная скаважность ШИМ,
+        fan_high - максимальная скважность ШИМб
+        fan_pwm  - обект PWM.
     """
     def __init__(self, temperature: "Temperature", temp_min: int, temp_max: int, fan_low: int, fan_high: int, fan_pwm: "PWM"):
         self._temperature = temperature
@@ -20,11 +26,15 @@ class Fan:
         self._fan_pwm = fan_pwm
 
     def start(self):
+        """
+        Старт вентилятора на минимальной скважности.
+        """
         debug("Fan.start | The fat is starting....")
         self._fan_pwm.start(self._fan_low)
 
     def _duty_cycle(self) -> Union[int, Exception]:
         """
+        Определяет скважность ШИМ в зависимости от текущей температуры CPU.
 
         """
         temperature = self._temperature.temperature()
@@ -44,9 +54,12 @@ class Fan:
             return frequency
 
     def update_fan_frequency(self) -> Optional[Exception]:
+        """
+        Обновляет скважность ШИМ для вентилятор.
+        """
         duty_cycle = self._duty_cycle()
-        if isinstance(duty_cycle, int):
-            self._fan_pwm.ChangeDutyCycle(duty_cycle)
-        else:
+        if isinstance(duty_cycle, Exception):
             error(f"Fan.update_fan_frequency | {duty_cycle}")
             return duty_cycle
+        else:
+            self._fan_pwm.ChangeDutyCycle(duty_cycle)
