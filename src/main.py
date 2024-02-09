@@ -25,11 +25,10 @@ def main():
     try:
         control.run()
     except KeyboardInterrupt:
-        GPIO.cleanup()
+        control.stop()
     finally:
-        GPIO.cleanup()
+        control.stop()
 
 
 if __name__ == "__main__":
     main()
-

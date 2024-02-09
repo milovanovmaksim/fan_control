@@ -23,3 +23,6 @@ class FanControl:
                 error(f"FanControl.run  | {result}")
                 raise result
             time.sleep(self._delay)
+
+    def stop(self):
+        self._fan.stop()

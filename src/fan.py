@@ -63,3 +63,6 @@ class Fan:
             return duty_cycle
         else:
             self._fan_pwm.ChangeDutyCycle(duty_cycle)
+
+    def stop(self):
+        self._fan_pwm.stop()
